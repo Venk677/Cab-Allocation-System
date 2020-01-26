@@ -17,7 +17,7 @@ class DriverModel(models.Model):
     date_modified = models.DateTimeField(auto_now_add=True)
     
 '''Ride details of the ride with user and driver details.'''
-class RideDetails(models.Model):
+class RideDetailsModel(models.Model):
     REQUESTED = "RE"
     ACCEPTED = "AC"
     DONE = "DO"
@@ -26,7 +26,7 @@ class RideDetails(models.Model):
         (ACCEPTED, "Accepted"),
         (DONE, "Done")
     ]
-    username = models.ForeignKey(UserModel ,on_delete=models.CASCADE,help_text="Select the User")
-    drivername = models.ForeignKey(DriverModel ,on_delete=models.CASCADE,help_text="Select the Driver")
+    user = models.ForeignKey(UserModel ,on_delete=models.CASCADE,help_text="Select the User")
+    driver = models.ForeignKey(DriverModel ,on_delete=models.CASCADE,help_text="Select the Driver")
     ride_created = models.DateTimeField(auto_now_add=True)
     status = models.name = models.CharField(max_length=2,choice=RIDE_CHOICES,default=DONE,help_text="Select your operation to view your user in that status")  
