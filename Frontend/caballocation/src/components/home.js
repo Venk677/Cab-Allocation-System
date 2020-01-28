@@ -12,7 +12,7 @@ class Home extends React.Component {
                 <div style={{ display: 'flex', justifyContent: 'flex-start', flexDirection: 'row',  marginRight:200, marginLeft:50}}>
                 <div >   
                     <div style={{ display: 'flex', flexDirection: 'row', width: '70%', height: '600px'}}>
-                        <img src="/cab.png" alt="base" width='70%' height='100%'/>
+                        <img src="/Cab-booking.jpg" alt="base" width='70%' height='100%'/>
                     </div>      
                 </div>
                 <div className="home-content">
@@ -25,9 +25,8 @@ class Home extends React.Component {
                     <NavLink to="driver">Driver</NavLink>
                     </div>
                 </div>
-                </div>
-                <NavLink to ="settings">Settings</NavLink>
-            </div>
+                </div>  
+            </div>      
         )
     }
 }
