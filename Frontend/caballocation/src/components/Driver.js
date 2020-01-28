@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 
 
 class Driver extends Component {
@@ -7,8 +8,19 @@ class Driver extends Component {
         super(props)
     
         this.state = {
-             username :''
+             driver :''
         }
+    }
+
+    driverSubmit(driver){
+        axios.post(`http://127.0.0.1:8000/drivers/`,{
+            driver 
+        })
+        .then(res => {
+            this.setState({
+                driver : res.data
+            })
+        })
     }
     
     render() {
@@ -25,7 +37,7 @@ class Driver extends Component {
                    <div className="driver-header" >
                    <div style ={{marginTop:'100px'}}>
                     <input type = "text" value={this.state.driver} onChange={()=>this.setState({driver:event.target.value})} />
-                    {/* <button onClick = {this.driverSubmit(this.state.driver)}>Create</button> */}
+                    <button onClick = {this.driverSubmit(this.state.driver)}>Create</button> 
                     {console.log("Recieving",this.state.driver)}
                     </div>
                 </div>
