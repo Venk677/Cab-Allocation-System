@@ -7,7 +7,7 @@ from .serializers import *
 from django.shortcuts import get_object_or_404
 
 
-class UserViewsets(viewsets.ModelViewSet):
+class UserViewSets(viewsets.ViewSet):
 
     '''To list all the user.'''
 
@@ -33,15 +33,15 @@ class UserViewsets(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-class DriverViewSets(viewsets.ModelViewSet):
+class DriverViewSets(viewsets.ViewSet):
 
-   '''To list all the drivers.'''
-
+    '''To list all the drivers.'''
+    
     def list(self, request):
         queryset = DriverModel.objects.all()
-        serializer = DriverSerializer(queryset, many=True)
+        serializer = DriverSerializers(queryset, many=True)
         return Response(serializer.data)
-
+    
     '''To retrieve a specific user.'''
 
     def retrieve(self, request, pk=None):
@@ -59,7 +59,7 @@ class DriverViewSets(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-class RideDetailsViewSets(viewsets.ModelViewSets):
+class RideDetailsViewSets(viewsets.ViewSet):
 
     '''To list all the ride details and its status'''
 
@@ -77,8 +77,8 @@ class RideDetailsViewSets(viewsets.ModelViewSets):
         serializer = RideDetailsSerializer(queryset, many=True)
         return Response(serializer.data)
 
-     def create(self, request):
-            print("This is Create start", request.data)
+    def create(self, request):
+        print("This is Create start", request.data)
         try:
             user = UserModel.objects.get(id=request.data['user'])
             print("Try block", user)
