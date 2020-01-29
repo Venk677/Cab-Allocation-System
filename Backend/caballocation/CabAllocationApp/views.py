@@ -77,8 +77,8 @@ class RideDetailsViewSets(viewsets.ModelViewSets):
         serializer = RideDetailsSerializer(queryset, many=True)
         return Response(serializer.data)
 
-     def create(self, request):
-            print("This is Create start", request.data)
+    def create(self, request):
+        print("This is Create start", request.data)
         try:
             user = UserModel.objects.get(id=request.data['user'])
             print("Try block", user)
@@ -87,7 +87,6 @@ class RideDetailsViewSets(viewsets.ModelViewSets):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         requested = RideDetails.objects.filter(user=user).filter(status='RE').count()
         accepted = RideDetails.objects.filter(user=user).filter(status='AC').count()
-        # print("Queryset", len(queryset))
         if requested > 0:
             return Response("Already Requested", status=status.HTTP_226_IM_USED)
         if accepted > 0:
