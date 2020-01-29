@@ -3,6 +3,7 @@ import Home from './home';
 import User from './Users';
 import Driver from './Driver';
 import React, { Component } from 'react'
+import Setting from './settings'
 
 class BasicRouter extends Component {
     render() {
@@ -11,6 +12,7 @@ class BasicRouter extends Component {
              <Route exact path = "/" component={Home}/>   
              <Route exact path = "/user" component ={User}/>
              <Route exact path ="/driver" component ={Driver} />
+             <Route exact path ="/settings" component= {Setting} />
             </div>
         )
     }
