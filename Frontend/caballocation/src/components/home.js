@@ -24,6 +24,10 @@ class Home extends React.Component {
                     <div style={{fontSize:30, marginTop:20}}>
                     <NavLink to="driver">Driver</NavLink>
                     </div>
+                    <div style={{fontSize:20, marginTop:20, color:"red"}}>OR</div>
+                    <div style={{fontSize:30, marginTop:20}}>
+                    <NavLink to="settings">Settings</NavLink>
+                    </div>
                 </div>
                 </div>  
             </div>      

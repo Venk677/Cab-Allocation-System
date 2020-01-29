@@ -9,11 +9,11 @@ class UserModelAdmin(admin.ModelAdmin):
     
     
 @admin.register(DriverModel)
-class DriverModel(admin.ModelAdmin):
+class DriverAdmin(admin.ModelAdmin):
     list_display =('drivername','date_created', 'date_modified',)
 
-@admin.register(RiderDetails)
+@admin.register(RideDetailsModel)
 class RiderDetailsAdmin(admin.ModelAdmin):
-    list_display = ('username', 'drivername', 'ride_created', 'status',)
+    list_display = ('user', 'driver', 'ride_created', 'status',)
 
 

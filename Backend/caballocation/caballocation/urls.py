@@ -19,4 +19,8 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('CabAllocationApp.urls'))
+<<<<<<< HEAD
 ]
+=======
+]
+>>>>>>> c552c98b3cc05cb771a7336b56f2fcfae0f1bbee

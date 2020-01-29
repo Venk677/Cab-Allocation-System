@@ -1,12 +1,24 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> c552c98b3cc05cb771a7336b56f2fcfae0f1bbee
 from django.urls import path
 
 from rest_framework.routers import DefaultRouter
 
+<<<<<<< HEAD
 from .views import UserViewSet, DriverViewSet, RideViewSet
 
 router = DefaultRouter()
 router.register(r'users',UserViewSet, basename="users")
 router.register(r"drivers", DriverViewSet, basename="drivers")
 router.register(r'ridedetails', RideViewSet, basename="ride-details")
+=======
+from .views import UserViewSets, DriverViewSets, RideDetailsViewSets
+
+router = DefaultRouter()
+router.register(r'users',UserViewSets, basename="users")
+router.register(r"drivers", DriverViewSets, basename="drivers")
+router.register(r'ridedetails', RideDetailsViewSets, basename="ride-details")
+>>>>>>> c552c98b3cc05cb771a7336b56f2fcfae0f1bbee
 urlpatterns = router.urls
