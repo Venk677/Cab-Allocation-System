@@ -20,13 +20,12 @@ class RideDetailsSerializer(serializers.ModelSerializer):
         fields =('id','user','driver','ride_created','status',)
         
 class RideCreateDetailsSerialziers(serializers.ModelSerializer):
-    user = UserModel()
     class Meta:
         model = RideDetailsModel
         fields = ('user','status',)
 
-class RideUpdateDetailsSerializers(serializers.ModelSerializer):
-    driver = DriverModel()
-    class Meta:
-        model = RideDetailsModel
-        fields = ('driver','status',) 
+# class RideUpdateDetailsSerializers(serializers.ModelSerializer):
+#     driver = DriverModel()
+#     class Meta:
+#         model = RideDetailsModel
+#         fields = ('driver','status',) 

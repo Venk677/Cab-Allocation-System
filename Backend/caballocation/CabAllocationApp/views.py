@@ -78,40 +78,68 @@ class RideDetailsViewSets(viewsets.ViewSet):
         return Response(serializer.data)
 
     def create(self, request):
-        print("This is Create start", request.data)
+        print("creating", request.data)
         try:
-            user = UserModel.objects.get(id=request.data['user'])
-            print("Try block", user)
-        except UserModel.DoesNotExist:
+            user=UserModel.objects.get(id = request.data['user'])
+            print("User", user)
+        except:
+            return Response(status = status.HTTP_400_BAD_REQUEST)
             print("Except block")
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-        requested = RideDetails.objects.filter(user=user).filter(status='RE').count()
-        accepted = RideDetails.objects.filter(user=user).filter(status='AC').count()
+            # Making variables to filter and check status
+        requested = RideDetailsModel.objects.filter(user=user).filter(status='RE').count()
+        print("Requested:", requested)
+        accepted = RideDetailsModel.objects.filter(user=user).filter(status='AC').count()
+             #Checking if the user had requested an ride or have an ongoing ride"
+        print("Accepted", accepted)
         if requested > 0:
-            return Response("Already Requested", status=status.HTTP_226_IM_USED)
+            return Response("Already Requested",status=status.HTTP_226_IM_USED)
         if accepted > 0:
-            return Response("Ride is ongoing", status=status.HTTP_403_FORBIDDEN)
-        serializer = RideCreateSerializer(data=request.data)
+            return Response("Already Ongoing",status=status.HTTP_403_FORBIDDEN)
+        serializer=RideCreateDetailsSerialziers(data=request.data)
+        print("Serializer", serializer)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, pk=None):
-        ride = RideDetails.objects.get(id=pk)
-        status = request.data.get('status', None)
+        # ride = RideDetails.objects.get(id=pk)
+        # status = request.data.get('status', None)
+        # if status == 'AC' or status == 'DO':
+        #     # This ensures only valid states are set, invalid states are ignored
+        #     ride.status = status
+        # if status == 'AC':
+        #     # Driver is set only while accepting the ride and at no other point
+        #     driver_name = request.data.get('driver', None)
+        #     if driver_name is not None:
+        #         try:
+        #             driver = DriverModel.objects.get(drivername=driver_name)
+        #             ride.driver = driver
+        #         except DriverModel.DoesNotExist:
+        #             return Response("Driver doesnot exist", status=status.HTTP_400_BAD_REQUEST)
+        # ride.save()
+
+        # #to get a specific ride details using its pk
+        ride =RideDetailsModel.objects.get(id=pk)
+        #checking its status
+        status=request.data.get('status', None)
         if status == 'AC' or status == 'DO':
-            # This ensures only valid states are set, invalid states are ignored
-            ride.status = status
+            # To know whether to update or not, if its DO its done and no need to update
+            ride.status=status
         if status == 'AC':
-            # Driver is set only while accepting the ride and at no other point
-            driver_name = request.data.get('driver', None)
+            #Driver can be only updated before the current driver accepts.
+            driver_name = request.data.get('driver',None)
             if driver_name is not None:
                 try:
                     driver = DriverModel.objects.get(drivername=driver_name)
-                    ride.driver = driver
+                    ride.driver=driver
                 except DriverModel.DoesNotExist:
-                    return Response("Driver doesnot exist", status=status.HTTP_400_BAD_REQUEST)
+                    return Response("Driver doesnot exist", status=status.HTTP_400_BAD_REQUEST)    
         ride.save()
+
+             
+
+
+
         
         
             

@@ -31,7 +31,7 @@ class RideDetailsModel(models.Model):
         (DONE, "Done")
     ]
     user = models.ForeignKey(UserModel ,on_delete=models.CASCADE,help_text="Select the User")
-    driver = models.ForeignKey(DriverModel ,on_delete=models.CASCADE,help_text="Select the Driver")
+    driver = models.ForeignKey(DriverModel ,on_delete=models.CASCADE,help_text="Select the Driver", blank=True, null=True)
     ride_created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(choices=RIDE_CHOICES,default=DONE,max_length=2,help_text="Select your operation to view your user in that status")  
     
