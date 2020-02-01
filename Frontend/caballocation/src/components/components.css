@@ -2,6 +2,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSYZxmwdiByHD38Zy4OnYKIYL5za1mOIKD--hFpS2Yo9N_74Mdh");
+    width: 100%;
+    height: 100%;
+    position: fixed;
 }
 
 .home-header {

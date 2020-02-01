@@ -1,64 +1,109 @@
-import React, { Component } from 'react'
-import {NavLink} from 'react-router-dom';
-import axios from 'axios';
+import React from "react";
+import axios from "axios";
+import { NavLink } from "react-router-dom";
 
-class Setting extends Component {
+class Settings extends React.Component {
     constructor(props) {
-      super(props)
-    
-      this.state = {
-         username:"",
-         drivername:"",
+        super(props);
+        this.state = {
+            user: [],
+            drivers:[],
+            username:"",
+            drivername:""
         }
         this.userSubmit = this.userSubmit.bind(this);
         this.driverSubmit = this.driverSubmit.bind(this);
     }
+    componentDidMount() {
+        axios
+          .get("http://127.0.0.1:8000/users/")
+          .then(res =>
+            this.setState({
+              user: res.data
+            })
+          )
+          .catch(err => console.log("Error", err));
+    
+        axios.get("http://127.0.0.1:8000/drivers/").then(res =>
+          this.setState({
+            drivers: res.data
+          })
+        ).catch(err => console.log("Error", err)
+        );
+     }
 
+     userSubmit(username) {
+        //  console.log("usernameSubmit:", username);
+         axios.post(`http://127.0.0.1:8000/users/`, {
+             username
+         })
+         .then(res => {
+         console.log("Successful",res.data);
+         })
+         .catch(err => console.log("Error", err)) 
+         this.setState({
+             username:"",
+         })
+           
+        
+     }
 
-    driverSubmit =(drivername) =>{
-        axios.post(`http://127.0.0.1:8000/drivers/`,{drivername})
-        .then(res =>{
-            console.log("Successfully posted",res.data);
+     driverSubmit(drivername) {
+        // console.log("driverSubmit:", drivername);
+        axios.post(`http://127.0.0.1:8000/drivers/`, {
+            drivername
+        }).then(res => {
+        console.log("Successful",res.data);
         })
-        .catch(err => console.log("Error",err))
+        .catch(err => console.log("Error", err))   
         this.setState({
-            drivername:""
+            drivername:"",   
         })
     }
     
-    userSubmit =(username) =>{
-        axios.post(`http://127.0.0.1:8000/users/`,{username})
-        .then(res => {
-            console.log("Successfully posted",res.data);
-        })
-        .catch(err => console.log("Error",err))
-        this.setState({
-            username:"",
-        });
-    }
-    
-  render() {
-    return (
-       <div className="driver-home">
-                <div className="driver-header" >
+    render () {
+        return (
+            <div className="settings-page">
+                <div className="driver-header">
+                Welcome to the Settings page
                 <NavLink to="/">Home</NavLink>
-                <NavLink to="/driver">Driver</NavLink>
-                <NavLink to="/user">User</NavLink>
-                {/* For creating a new user  */}
                 </div>
-                <div style ={{marginTop:'100px'}}>
-                    <input placeholder = "Please enter username" type="text" value={this.state.username} onChange={() => this.setState({username:event.target.value})} />
+                <div className="creating-user">
+                    <div>Create user:</div>
+                    <div>
+                        <input type="text" value={this.state.username} onChange={() => this.setState({username:event.target.value})} />
+                        <button onClick={() => this.userSubmit(this.state.username)}>Submit</button>
+                    </div>
                 </div>
-                    <button onClick={() => this.userSubmit(this.state.username)}>Create</button>
-                
-                {/* For creating a new driver  */}
-                <div style ={{marginTop:'100px'}}>
-                    <input placeholder = "Please enter drivername" type="text" value={this.state.drivername} onChange={() => this.setState({drivername:event.target.value})} />
+                <div className="creating-user">
+                    <div>Create Driver:</div>
+                    <div>
+                        <input type="text" value={this.state.drivername} onChange={() => this.setState({drivername:event.target.value})} />
+                        <button onClick={() => this.driverSubmit(this.state.drivername)}>Submit</button>
+                    </div>
                 </div>
-                    <button onClick={() => this.driverSubmit(this.state.drivername)}>Create</button>
-            
-      </div>
-    )
-  }
+                    
+          &nbsp;
+                <h2>List of existing users</h2>
+                <div>
+                        <ol>
+                            {this.state.user.map((items, index) => (
+    <li key={index}><h4>{items.username}</h4></li>
+                            ))}
+                        </ol>
+                    </div>
+
+                <h2>List of existing Drivers</h2>
+                    <div>
+                        <ol>
+                            {this.state.drivers.map((items, index) => (
+    <li key={index}><h4>{items.drivername}</h4></li>
+                            ))}
+                        </ol>
+                    </div>
+            </div>
+        )
+    }
 }
-export default Setting;
+
+export default Settings;

@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./components.css";
+import image from '../images/Cab-booking.jpg';
 
 class Home extends React.Component {
     render() {
@@ -10,11 +11,11 @@ class Home extends React.Component {
                     <h1>Welcome To Cab Allocation System Application</h1>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'flex-start', flexDirection: 'row',  marginRight:200, marginLeft:50}}>
-                <div >   
-                    <div style={{ display: 'flex', flexDirection: 'row', width: '70%', height: '600px'}}>
-                        <img src="/Cab-booking.jpg" alt="base" width='70%' height='100%'/>
+                {/* <div >   
+                    <div style={{  width:'100%' ,height:'100%'}}>
+                        <img src={image} alt="base" />
                     </div>      
-                </div>
+                </div> */}
                 <div className="home-content">
                     <div style={{fontSize:50, marginTop:20}}>Login as </div>
                     <div style={{fontSize:30, marginTop:20}}>

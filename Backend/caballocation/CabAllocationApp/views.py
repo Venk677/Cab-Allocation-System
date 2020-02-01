@@ -39,7 +39,7 @@ class DriverViewSets(viewsets.ViewSet):
     
     def list(self, request):
         queryset = DriverModel.objects.all()
-        serializer = DriverSerializers(queryset, many=True)
+        serializer = DriverSerializer(queryset, many=True)
         return Response(serializer.data)
     
     '''To retrieve a specific user.'''
